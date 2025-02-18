@@ -1,227 +1,138 @@
-This schema defines the structure of a unified, open-access database designed to support animal advocacy. By integrating data from diverse sources, it supports AI applications such as retrieval-augmented generation (RAG)and model training, as well as general strategic planning and referencing. 
+# Quick Start Guide: Vector-Graph Database with OpenAI Integration
 
-### **CONTENT**
+This guide demonstrates how to use our read-only vector-graph hybrid database powered by [Weaviate](https://weaviate.io/developers/weaviate) with OpenAI integration for AI-enabled knowledge management. You'll need to provide your own OpenAI API key for generating embeddings and using generative AI features.
 
-**Purpose**:
+For complete documentation, visit the [Weaviate Documentation](https://weaviate.io/developers/weaviate).
 
-The CONTENT class functions as the primary centralized repository for materials related to veganism and animal advocacy, such as articles, reports, blogs, and transcripts. It supports AI applications like semantic search, knowledge graphs, and retrieval-augmented generation (RAG).
+## Connection Details
 
-**How to Use**:
+```
+REST Endpoint: https://larnd9rle1zwapsdcqw.c0.us-east1.gcp.weaviate.cloud
+gRPC Endpoint: https://grpc-larnd9rle1zwapsdcqw.c0.us-east1.gcp.weaviate.cloud
+ReadOnly API Key: 77dlitQ5eF1NHidCTp2f3kjPQUQiPF8C6aei
+```
 
-Users can query this class to access content and its associated metadata. For example, they might retrieve all blog posts about a specific species, filter scientific studies by publication date or sort social media posts by their alignment with animal rights.
+## 1. Database Connection
 
-- **summary:** text
-- **main_text:** text
-- **content_type:** text
-- **source_url:** array of texts
-- **individual_authors**: ref to `Individual`
-- **group_authors**: ref to `Group`
-- **language**: ref to `Language`
-- **date**: date
-- **related_individuals**: ref to `Individual`
-- **related_groups**: ref to `Group`
-- **related_species**: ref to `Species`
-- **related_locations**: ref to `Location`
-- **related_events:** ref to `Event`
-- **scores**: object
-    - **good_for_animals:** number
-    - **cultural_sensitivity**: number
-    - **relevance**: number
-    - **insight**: number
-    - **trustworthiness**: number
-    - **emotional_impact**: number
-    - **rationality**: number
-    - **influence**: number
-    - **alignment**: number
-    - **predicted_performance**: number
-    - **average_score**: number
-- **tags**: array of text
+See [How to Connect](https://weaviate.io/developers/weaviate/client-libraries/python) for more details.
 
-### **LANGUAGE**
+```python
+import weaviate
+from weaviate.classes.init import Auth
+import os
 
-**Purpose**:
+# Connect with read-only API key
+client = weaviate.connect_to_weaviate_cloud(
+    cluster_url=os.environ["WEAVIATE_URL"],
+    auth_credentials=Auth.api_key(os.environ["WEAVIATE_API_KEY"]),
+    headers={
+        "X-OpenAI-Api-Key": os.environ["OPENAI_APIKEY"]
+    }
+)
+```
 
-The LANGUAGE class standardizes metadata about languages used in advocacy materials. It ensures global inclusivity and supports multilingual applications in content tagging, filtering, and analysis.
+## 2. Search Operations
 
-**How to Use**:
+See [Search Guide](https://weaviate.io/developers/weaviate/search) for complete search documentation.
 
-Organizations can use this class to filter content by language or to identify language-specific materials for regional campaigns or localization. For example, it allows users to retrieve all advocacy content written in a target language or all groups that produce content in that language.
+### Vector Search
 
-- **native_name**: text
-- **iso_code**: text
-- **related_individuals**: ref to `Individual`
-- **related_groups**: ref to `Group`
-- **related_locations**: ref to `Location`
-- **related_events:** ref to `Event`
-- **content_written_in_this_language**: ref to `Content`
-- **tags**: array of text
+```python
+content = client.collections.get("Content")
+response = content.query.near_text(
+    query="factory farming investigation techniques",
+    limit=3
+)
 
-### **LOCATION**
+for result in response.objects:
+    print(result.properties)
+```
 
-**Purpose**:
+### Hybrid Search (Vector + Keyword)
 
-The LOCATION class provides a consistent framework for linking data to geographic contexts, from regions and countries to specific sites.
+```python
+response = content.query.hybrid(
+    query="effective animal advocacy strategies",
+    alpha=0.5,  # Balance between vector and keyword search
+    limit=3
+)
+```
 
-**How to Use**:
+### Filtered Search
 
-Users can query this class to retrieve geospatial context for content, events, groups, individuals, events or species. For instance, users could retrieve all events conducted in a specific city or list all factory farms within a specified region.
+```python
+from weaviate.classes.query import Filter
 
-- **name**: text
-- **type**: text
-- **description**: text
-- **coordinates**: geoCoordinates
-- **miles_radius:** number
-- **related_individuals**: ref to `Individual`
-- **related_groups**: ref to `Group`
-- **related_species**: ref to `Species`
-- **related_events:** ref to `Event`
-- **related_content**: ref to `Content`
-- **tags**: array of text
+response = content.query.near_text(
+    query="sanctuary best practices",
+    filters=Filter.by_property("content_type").equal("report"),
+    limit=3
+)
+```
 
-### **EVENT**
+## 3. Advanced Features
 
-**Purpose**:
+### RAG (Retrieval Augmented Generation)
 
-The EVENT class tracks data about advocacy-related activities, including protests, conferences, and campaigns.
+See [RAG Documentation](https://weaviate.io/developers/weaviate/search/rag) for more details.
 
-**How to Use**:
+#### Single Prompt (Per-Result Generation)
 
-Users can retrieve detailed event records, including participants, locations, and dates. For instance, they might examine the history of protests in a given region or analyze connections between events and individuals or groups.
+```python
+response = content.generate.near_text(
+    query="factory farming investigation techniques",
+    single_prompt="Summarize this content: {main_text}",
+    limit=3
+)
 
-- **name**: text
-- **type**: text
-- **description**: text
-- **status**: text
-- **start_date**: date
-- **end_date**: date
-- **participant_count**: integer
-- **participating_individuals**: ref to `Individual`
-- **participating_groups**: ref to `Group`
-- **location**: ref to `Location`
-- **related_species**: ref to `Species`
-- **related_content**: ref to `Content`
-- **tags**: array of text
+print(response.generated)
+```
 
-### **GROUP**
+#### Grouped Task (Single Generation for All Results)
 
-**Purpose**:
+```python
+response = content.generate.near_text(
+    query="successful campaign strategies",
+    grouped_task="What patterns emerge from these successful campaigns?",
+    limit=5
+)
 
-The GROUP class represents organizations, coalitions, businesses and other entities related to animal advocacy or animal exploitation, whether allies, adversaries, or neutral stakeholders.
+print(response.generated)
+```
 
-**How to Use**:
+### Aggregate Data
 
-Organizations can query this class to analyze a group’s role, strategies, and affiliations. For example, users might retrieve data on groups advocating for animal rights or lobbying groups opposing regulations on factory farming.
+See [Aggregations Documentation](https://weaviate.io/developers/weaviate/aggregate) for more options.
 
-- **name**: text
-- **type**: text
-- **description**: text
-- **status**: text
-- **location**: ref to `Location`
-- **language**: ref to `Language`
-- **members**: ref to `Individual`
-- **membership_count**: integer
-- **alignment_score**: number
-- **advocacy_approach**: object
-    - **incrementalist_vs_abolitionist**: number
-    - **individual_vs_institutional**: number
-    - **solely_animal_vs_intersectional**: number
-    - **welfare_vs_rights**: number
-    - **diplomatic_vs_confrontational**: number
-    - **intuitive_vs_empirical**: number
-- **adversarial_approach**: object
-    - **values_vs_profit**: number
-    - **short_term_vs_long_term**: number
-    - **innovation_vs_tradition**: number
-    - **pro_regulation_vs_anti_regulation**: number
-    - **transparency_vs_misinformation**: number
-    - **passive_vs_active**: number
-- **contact_details**: array of objects
-    - **type**: text
-    - **value**: text
-    - **verified**: boolean
-- **social_media**: array of objects
-    - **platform**: text
-    - **link**: text
-    - **followers**: integer
-    - **verified**: boolean
-- **related_species**: ref to `Species`
-- **related_locations**: ref to `Location`
-- **related_events:** ref to `Event`
-- **related_content**: ref to `Content`
-- **tags**: array of text
+```python
+response = content.aggregate.over_all(
+    group_by=weaviate.classes.aggregate.GroupByAggregate(
+        prop="content_type"
+    )
+)
 
-### **INDIVIDUAL**
+for group in response.groups:
+    print(f"Type: {group.grouped_by.value} Count: {group.total_count}")
+```
 
-**Purpose**:
+## 4. Available Collections
 
-The INDIVIDUAL class captures data on people participating in animal advocacy or engaged in animal exploitation, including activists, policymakers, corporate executives, politicians and industry stakeholders.
+Our database includes the following collections:
+- `Content`: Central repository for advocacy materials
+- `Individual`: Data on people in the movement
+- `Group`: Organization and coalition data
+- `Event`: Advocacy event tracking
+- `Species`: Scientific foundation for advocacy
+- `Location`: Geographic context linking
+- `Language`: Multilingual support
 
-**How to Use**:
+## 5. Best Practices
 
-Users can search for individuals by affiliations, roles, or activities. For example, an organization might analyze an influential policymaker to anticipate their potential impact on campaigns and the best approaches for reaching out to them.
+1. Use hybrid search for optimal retrieval
+2. Leverage filters to narrow results
+3. Consider RAG for dynamic content generation
+4. Use aggregations for movement insights
+5. Start with small result limits and increase as needed
+6. Test queries with different alpha values in hybrid search to find the optimal balance
 
-- **first_name**: text
-- **last_name**: text
-- **description**: text
-- **species**: ref to `Species`
-- **affiliated_groups**: ref to `Group`
-- **alignment_score**: number
-- **advocacy_approach**: object
-    - **incrementalist_vs_abolitionist**: number
-    - **individual_vs_institutional**: number
-    - **solely_animal_vs_intersectional**: number
-    - **welfare_vs_rights**: number
-    - **diplomatic_vs_confrontational**: number
-    - **intuitive_vs_empirical**: number
-- **adversarial_approach**: object
-    - **values_vs_profit**: number
-    - **short_term_vs_long_term**: number
-    - **innovation_vs_tradition**: number
-    - **pro_regulation_vs_anti_regulation**: number
-    - **transparency_vs_misinformation**: number
-    - **passive_vs_active**: number
-- **demographics**: array of objects
-    - **type**: text
-    - **value**: text
-    - **verified**: boolean
-- **language**: ref to `Language`
-- **location**: ref to `Location`
-- **contact_details**: array of objects
-    - **type**: text
-    - **value**: text
-    - **verified**: boolean
-- **social_media**: array of objects
-    - **platform**: text
-    - **link**: text
-    - **followers**: integer
-    - **verified**: boolean
-- **related_content**: ref to `Content`
-- **tags**: array of text
-
-### **SPECIES**
-
-**Purpose**:
-
-The SPECIES class provides a scientific foundation for species-specific advocacy, linking taxonomical and biological information to campaigns and research.
-
-**How to Use**:
-
-Users can retrieve species data, such as common names or classifications, to support advocacy initiatives or retrieve content about a specific species. For example, users can search for all content related to a species of animals or all groups involved in advocating for or exploiting that species.
-
-- **scientific_name**: text
-- **common_names**: array of text
-- **description**: text
-- **taxonomy**: object
-    - **kingdom**: text
-    - **phylum**: text
-    - **class**: text
-    - **order**: text
-    - **family**: text
-    - **genus**: text
-    - **species**: text
-- **related_individuals**: ref to `Individual`
-- **related_groups**: ref to `Group`
-- **related_locations**: ref to `Location`
-- **related_events:** ref to `Event`
-- **related_content**: ref to `Content`
-- **tags**: array of text
+Note: Always refer to [OpenAI's documentation](https://platform.openai.com/docs) and [Weaviate's documentation](https://weaviate.io/developers/weaviate) for the most up-to-date information.
