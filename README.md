@@ -35,12 +35,12 @@ Documentation for our specialized generative AI models, including Large Language
 Documentation for our vector-graph database:
 
 1. **Getting Started**
-   - Quick setup guide
+   - [Quick setup guide](Knowledge/README.md)
    - Basic search patterns
    - Integrations
    - Usage guidelines & best practises
 
-2. **Schema Classes**
+   [**Schema Classes**
    - Content
    - Language
    - Location
