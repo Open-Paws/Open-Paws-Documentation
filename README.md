@@ -1,7 +1,9 @@
 # Documentation, Demonstrations & Datasets
 
 ## Overview
-This repository contains documentation and examples for building AI systems to support animal advocacy. Our ecosystem includes prediction models, a comprehensive knowledge graph and vector database, specialized models, and extensive datasets.
+This repository contains documentation and examples for building AI systems to support animal advocacy using Open Paws models, data and tools. 
+
+Our ecosystem includes prediction models, a comprehensive knowledge graph and vector database, specialized models, and extensive datasets.
 
 ## Documentation
 
