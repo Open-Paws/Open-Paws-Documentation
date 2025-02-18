@@ -22,16 +22,16 @@ Documentation for our performance and preference prediction models:
 Documentation for our specialized generative AI models, including Large Language Models (LLMs) and Visual Language Models (VLMs):
 
 1. **3B Agentic Chat LoRA**
-   - Overview & Quick Start
-   - Best Practises & Usage Guidelines
+   - Overview & Quick Start (coming soon...)
+   - Best Practises & Usage Guidelines (coming soon...)
 
 2. **8B Reasoning LoRA**
-   - Overview & Quick Start
-   - Best Practises & Usage Guidelines
+   - Overview & Quick Start (coming soon...)
+   - Best Practises & Usage Guidelines (coming soon...)
 
 3. **11B Visual Language LoRA**
-   - Overview & Quick Start
-   - Best Practises & Usage Guidelines
+   - Overview & Quick Start (coming soon...)
+   - Best Practises & Usage Guidelines (coming soon...)
 
 ## Demonstrations
 
