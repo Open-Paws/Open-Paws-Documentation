@@ -1,90 +1,86 @@
 # Documentation & Demonstrations
 
 ## Overview
-This repository contains documentation and examples for building AI systems to support animal advocacy. Our tools include prediction models for evaluating content and campaigns, a comprehensive knowledge graph and vector database for strategic insights, and specialized genertaive AI models optimized for advocacy tasks.
+This repository contains documentation and examples for building AI systems to support animal advocacy. Our ecosystem includes prediction models, a comprehensive knowledge graph and vector database, specialized models, and extensive datasets.
 
 ## Documentation
 
-### 📚 Core Components
-Detailed documentation for our main tools:
+### 📊 Prediction Models
+Documentation for our performance and preference prediction models:
 
-1. **Performance & Preference Prediction Models**
-   - Content evaluation APIs
-   - Campaign effectiveness scoring
-   - Alignment measurement
-   - Model architecture details
-   - Fine-tuning guides
+1. **Content Scoring Models**
+   - Animal alignment
+   - Cultural sensitivity
+   - Emotional impact
+   - Effect on animals
+   - Influence
+   - Relevance
+   - Rationality
+   - Trustworthiness
+   - Insight
+   - Performance
 
-2. **Knowledge & Data Store**
-   - Vector-graph database schema
-   - Query patterns and optimization
-   - Local deployment configuration
-   - Data integration guides
-   - Performance optimization
+2. **Model Variants**
+   - Generic Predictions
+   - Personalised Predictions
 
-3. **Specialized Generative AI Models**
-   - Model cards and capabilities
-   - Deployment requirements
-   - Integration patterns
-   - Best practices
-   - Ethical considerations
+### 🤖 Specialized Generative AI Models
+Documentation for our specialized generative AI models, including Large Language Models (LLMs) and Visual Language Models (VLMs):
 
-## Demonstrations (coming soon...)
+1. **3B Agentic Chat LoRA**
+   - Quick setup guide
+   - Advanced implementation
+   - Training details
+   - Usage guidelines & best practises
 
-### 🎯 Strategic Applications
-Complete examples of advocacy tools:
+2. **8B Reasoning LoRA**
+   - Quick setup guide
+   - Advanced implementation
+   - Training details
+   - Usage guidelines & best practises
 
-1. **Campaign Optimization Suite**
-   - Effectiveness prediction
-   - Message testing
-   - Audience analysis
-   - Impact measurement
-   - Strategy optimization
+3. **11B Visual Language LoRA**
+   - Quick setup guide
+   - Advanced implementation
+   - Training details
+   - Usage guidelines & best practises
 
-2. **Monitoring & Response Systems**
-   - Factory farm proposal detector
-   - Legislative tracking
-   - Corporate watchdog
-   - OSINT collection
-   - Automated responses
+### 🗄️ Knowledge Infrastructure
+Documentation for our vector-graph database:
 
-3. **Resource Development**
-   - Grant discovery agent
-   - Proposal generation
-   - Impact reporting
-   - Donor analysis
-   - Budget optimization
+1. **Getting Started**
+   - Quick setup guide
+   - Basic search patterns
+   - Integrations
+   - Usage guidelines & best practises
 
-### ⚡ Local Deployment Examples
-Self-hosted advocacy tools:
+2. **Schema Classes**
+   - Content
+   - Language
+   - Location
+   - Event
+   - Group
+   - Individual
+   - Species
 
-1. **Lightweight Chat Systems**
-   - Local model setup
-   - Knowledge base integration
-   - Custom agent creation
-   - Performance optimization
-   - Privacy preservation
+3. **Implementation Details**
+   - Query guidelines
+   - Scoring systems
+   - Data types
+   - Cross-references
+   - Integration methods
 
-2. **Analysis Tools**
-   - Document processing
-   - Content scoring
-   - Strategy evaluation
-   - Campaign analysis
-   - Impact assessment
+### 📚 Datasets
+Documentation for our HuggingFace datasets:
 
-### 🛠️ Integration Patterns
-Example implementations:
+1. **Conversational Datasets**
+   - Agentic conversations (small/medium/large)
+   - Visual QA (small/medium/large)
+   - Reasoning conversations (small Only)
+   - Usage guidelines & best practises
 
-1. **Advanced Search**
-   - Vector-graph queries
-   - Complex filtering
-   - Multi-modal search
-   - Knowledge graph navigation
-   - Result ranking
-
-2. **Automated Workflows**
-   - Multi-model pipelines
-   - Event-driven systems
-   - API integration
-   - Custom agents
-   - Workflow automation
+3. **Core Datasets**
+   - Animal advocacy facts
+   - Animal alignment feedback
+   - Usage guidelines & best practises
+  
