@@ -1,4 +1,4 @@
-# Open Paws Vector-Graph Database Schema
+# Database Schema
 
 This schema defines the structure of our unified, open-access database designed to support animal advocacy. By integrating data from diverse sources, it supports AI applications such as retrieval-augmented generation (RAG)and model training, as well as general strategic planning and referencing. 
 
