@@ -75,6 +75,9 @@ Available models:
 - Output: Performance score (0-1)
 - Use case: Quick performance estimation
 
+Available models:
+- `performance_prediction_input_text_only`
+
 **Full Details Text Model**
 - Input:
   - 768-dimension text embedding vector
@@ -101,12 +104,18 @@ Available models:
     - Content type
     - Timestamp
 
+Available models:
+- `performance_prediction_input_text_full_details`
+
 #### Image Performance Models
 
 **Basic Image Model**
 - Input: 512-dimension image embedding vector only
 - Output: Performance score (0-1)
 - Use case: Quick visual content evaluation
+
+Available models:
+- `performance_prediction_image_input_embedding_only`
 
 **Full Details Image Model**
 - Input:
@@ -134,3 +143,6 @@ Available models:
     - Language
     - Content type
     - Timestamp (posting date/time)
+
+Available models:
+- `performance_prediction_input_image_full_details`
