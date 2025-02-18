@@ -5,6 +5,13 @@ This repository contains documentation and examples for building AI systems to s
 
 ## Documentation
 
+### 🗄️ Knowledge Infrastructure
+Documentation for our vector-graph database:
+
+   - [Overview & Quick Start](Knowledge/README.md)
+   - Searching The Database
+   - Understanding Our Data Structure
+
 ### 📊 Prediction Models
 Documentation for our performance and preference prediction models:
 
@@ -14,47 +21,16 @@ Documentation for our performance and preference prediction models:
 Documentation for our specialized generative AI models, including Large Language Models (LLMs) and Visual Language Models (VLMs):
 
 1. **3B Agentic Chat LoRA**
-   - Quick setup guide
-   - Advanced implementation
-   - Training details
-   - Usage guidelines & best practises
+   - Overview & Quick Start
+   - Best Practises & Usage Guidelines
 
 2. **8B Reasoning LoRA**
-   - Quick setup guide
-   - Advanced implementation
-   - Training details
-   - Usage guidelines & best practises
+   - Overview & Quick Start
+   - Best Practises & Usage Guidelines
 
 3. **11B Visual Language LoRA**
-   - Quick setup guide
-   - Advanced implementation
-   - Training details
-   - Usage guidelines & best practises
-
-### 🗄️ Knowledge Infrastructure
-Documentation for our vector-graph database:
-
-1. **Getting Started**
-   - [Quick setup guide](Knowledge/README.md)
-   - Basic search patterns
-   - Integrations
-   - Usage guidelines & best practises
-
-   [**Schema Classes**
-   - Content
-   - Language
-   - Location
-   - Event
-   - Group
-   - Individual
-   - Species
-
-3. **Implementation Details**
-   - Query guidelines
-   - Scoring systems
-   - Data types
-   - Cross-references
-   - Integration methods
+   - Overview & Quick Start
+   - Best Practises & Usage Guidelines
 
 ### 📚 Datasets
 Documentation for our HuggingFace datasets:
@@ -65,7 +41,7 @@ Documentation for our HuggingFace datasets:
    - Reasoning conversations (small Only)
    - Usage guidelines & best practises
 
-3. **Core Datasets**
+2. **Core Datasets**
    - Animal advocacy facts
    - Animal alignment feedback
    - Usage guidelines & best practises
