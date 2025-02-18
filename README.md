@@ -1,4 +1,4 @@
-# Documentation & Demonstrations
+# Documentation, Demonstrations & Datasets
 
 ## Overview
 This repository contains documentation and examples for building AI systems to support animal advocacy. Our ecosystem includes prediction models, a comprehensive knowledge graph and vector database, specialized models, and extensive datasets.
@@ -32,20 +32,20 @@ Documentation for our specialized generative AI models, including Large Language
    - Overview & Quick Start
    - Best Practises & Usage Guidelines
 
-### 📚 Datasets
-Documentation for our HuggingFace datasets:
-
-1. **Conversational Datasets**
-   - Agentic conversations (small/medium/large)
-   - Visual QA (small/medium/large)
-   - Reasoning conversations (small Only)
-   - Usage guidelines & best practises
-
-2. **Core Datasets**
-   - Animal advocacy facts
-   - Animal alignment feedback
-   - Usage guidelines & best practises
-
 ## Demonstrations
 
 Coming soon...
+
+## Documentation
+Access our HuggingFace datasets:
+
+1. **Conversational Datasets**
+   - Agentic conversations ([small](https://huggingface.co/datasets/open-paws/agentic_conversations_small)/[medium](https://huggingface.co/datasets/open-paws/agentic_conversations_medium)/[large](https://huggingface.co/datasets/open-paws/agentic_conversations_large))
+   - Visual QA ([small](https://huggingface.co/datasets/open-paws/visual_qa_small)/[medium](https://huggingface.co/datasets/open-paws/visual_qa_medium)/[large](https://huggingface.co/datasets/open-paws/visual_qa_large))
+   - Reasoning conversations ([small](https://huggingface.co/datasets/open-paws/reasoning_conversations_small) only)
+   - Usage guidelines & best practises
+
+2. **Core Datasets**
+   - [Animal advocacy facts](https://huggingface.co/datasets/open-paws/animal_advocacy_facts)
+   - [Animal alignment feedback](https://huggingface.co/datasets/open-paws/animal_alignment_feedback)
+   - Usage guidelines & best practises
