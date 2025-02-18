@@ -11,7 +11,7 @@ Our ecosystem includes prediction models, a comprehensive knowledge graph and ve
 Documentation for our vector-graph database:
 
    - [Overview & Quick Start](Knowledge/README.md)
-   - Understanding Our Data Structure
+   - [Understanding Our Data Structure](Knowledge/Data_Structure.md)
 
 ### 📊 Prediction Models
 Documentation for our performance and preference prediction models:
