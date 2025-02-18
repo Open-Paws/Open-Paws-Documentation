@@ -8,21 +8,7 @@ This repository contains documentation and examples for building AI systems to s
 ### 📊 Prediction Models
 Documentation for our performance and preference prediction models:
 
-1. **Content Scoring Models**
-   - Animal alignment
-   - Cultural sensitivity
-   - Emotional impact
-   - Effect on animals
-   - Influence
-   - Relevance
-   - Rationality
-   - Trustworthiness
-   - Insight
-   - Performance
-
-2. **Model Variants**
-   - Generic Predictions
-   - Personalised Predictions
+- [Overview & Quick Start](docs/prediction_models/README.md)
 
 ### 🤖 Specialized Generative AI Models
 Documentation for our specialized generative AI models, including Large Language Models (LLMs) and Visual Language Models (VLMs):
