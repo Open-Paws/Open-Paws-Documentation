@@ -71,7 +71,7 @@ Available models:
 #### Text Performance Models
 
 **Basic Text Model**
-- Input: 768-dimension text embedding vector only
+- Input: Text content
 - Output: Performance score (0-1)
 - Use case: Quick performance estimation
 
@@ -80,7 +80,7 @@ Available models:
 
 **Full Details Text Model**
 - Input:
-  - 768-dimension text embedding vector
+  - Text content
   - Advocacy approach metrics (0-1):
     - Alignment
     - Cultural sensitivity
