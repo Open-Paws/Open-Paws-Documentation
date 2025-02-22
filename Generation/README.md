@@ -78,7 +78,7 @@ results = generator(texts, max_new_tokens=128, batch_size=3)
 ### 3B Agentic Chat Model
 
 - **Architecture**: LLaMA-based with agentic modifications
-- **Training Focus**: Dialogue and interactive discussions
+- **Training Focus**: Dialogue and interactive discussions with tool use.
 - **Special Features**: Fine-tuned for use of Open Paws tools, such as searching our database and making predictions with our text regression models.
 - **Input Format**: Standard chat format with system and user messages
 - **Output Format**: Structured responses with optional tool calls
@@ -100,11 +100,12 @@ results = generator(texts, max_new_tokens=128, batch_size=3)
   - 4-bit quantized: \~2GB VRAM
 - **8B Models**:
   - Full precision: \~16GB VRAM
+  - 4-bit quantized: \~4GB VRAM
 
 ### Recommended Hardware
 
 - GPU: Any CUDA-compatible GPU with appropriate VRAM
-- CPU: Possible but significantly slower
+- CPU: Possible, but significantly slower
 - RAM: Minimum 16GB system RAM recommended
 
 ## Best Practices
@@ -145,7 +146,7 @@ achieving animal liberation through strategic action."""
 
 1. **Model Size Trade-offs**: Being smaller models, they may not match the capabilities of larger language models for complex tasks.
 2. **Base Model Influence**: While largely aligned for animal advocacy, the base model weights remain largely unchanged due to LoRA fine-tuning, which can lead to edge cases where the models will act in unaligned ways, such as recommending nonvegan products. To address this, we recommend explicitly addressing animal alignment in the system message using the prompt given above.
-3. **User Context Awareness**: These models perform best when given clear contextual information about the user and their goals. For example, if engaging with a vegetarian considering veganism, the model should provide supportive and practical guidance on eliminating dairy and eggs, suggesting suitable replacements, and addressing common concerns such as nutrition and meal planning. Ensuring prompts contain user context will maximize alignment with advocacy goals.
+3. **User Context Awareness**: These models perform best when given clear contextual information about the user and their goals. For example, if engaging with a vegetarian considering veganism, the system prompt should explain that the model should provide supportive and practical guidance on eliminating dairy and eggs, suggesting suitable replacements, and addressing common concerns such as nutrition and meal planning. Ensuring prompts contain user context and developer intentions will maximize alignment with advocacy goals.
 
 ## Additional Resources
 
