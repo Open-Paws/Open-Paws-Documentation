@@ -6,17 +6,11 @@ A suite of language models specialized for animal advocacy, available in differe
 
 ## Available Models
 
-### Core Chat Models (3B Parameters)
+### Core Chat Model (3B Parameters)
 
 - [3B-agentic-chat-LoRA](https://huggingface.co/open-paws/3B-agentic-chat-LoRA) - LoRA adapter only
 - [3B-agentic-chat-merged](https://huggingface.co/open-paws/3B-agentic-chat-merged) - Full merged model
 - [3B-agentic-chat-4bit](https://huggingface.co/open-paws/3B-agentic-chat-4bit) - 4-bit quantized version
-
-### Strategic Reasoning Models (8B Parameters)
-
-- [8B-reasoning-LoRA](https://huggingface.co/open-paws/8B-reasoning-LoRA) - LoRA adapter only
-- [8B-reasoning-merged](https://huggingface.co/open-paws/8B-reasoning-merged) - Full merged model
-- [8B-reasoning-4bit](https://huggingface.co/open-paws/8B-reasoning-4bit) - 4-bit quantized version
 
 ## Usage Guide
 
@@ -75,7 +69,7 @@ results = generator(texts, max_new_tokens=128, batch_size=3)
 
 ### Inference Endpoints
 
-Both models are also available through secure API endpoints that mirror the OpenAI Chat Completions API format. Due to cost constraints, access to these endpoints requires an API token - animal advocacy organisations can contact sam@openpaws.ai to request free access.
+Our 4-bit model is available through secure API endpoints that mirror the OpenAI Chat Completions API format. Due to cost constraints, access to these endpoints requires an API token - animal advocacy organisations can contact sam@openpaws.ai to request free access.
 
 #### 3B Agentic Chat Model Endpoint
 
@@ -125,54 +119,6 @@ curl "https://vp9om1ztn13jmdq6.us-east-1.aws.endpoints.huggingface.cloud/v1/chat
 }'
 ```
 
-#### 8B Reasoning Model Endpoint
-
-**Using Python**
-
-from openai import OpenAI
-
-```python
-client = OpenAI(
-    base_url="https://eaay1txbr9fo549z.us-east-1.aws.endpoints.huggingface.cloud/v1/",
-    api_key="hf_XXXXX"  # Replace with your provided token
-)
-
-chat_completion = client.chat.completions.create(
-    model="tgi",
-    messages=[
-        {
-            "role": "user",
-            "content": "What is deep learning?"
-        }
-    ],
-    max_tokens=150,
-    stream=True
-)
-
-for message in chat_completion:
-    print(message.choices[0].delta.content, end="")
-```
-
-**Using curl**
-
-```
-curl "https://eaay1txbr9fo549z.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions" \
--X POST \
--H "Authorization: Bearer hf_XXXXX" \
--H "Content-Type: application/json" \
--d '{
-    "model": "tgi",
-    "messages": [
-        {
-            "role": "user",
-            "content": "What is deep learning?"
-        }
-    ],
-    "max_tokens": 150,
-    "stream": true
-}'
-```
-
 #### Endpoint Features
 
 - OpenAI-compatible API format
@@ -198,15 +144,7 @@ To request an API token for these endpoints, contact sam@openpaws.ai. Please inc
 - **Special Features**: Fine-tuned for use of Open Paws tools, such as searching our database and making predictions with our text regression models.
 - **Input Format**: Standard chat format with system and user messages
 - **Output Format**: Structured responses with optional tool calls
-
-### 8B Reasoning Model
-
-- **Architecture**: DeepSeek-based with strategic reasoning enhancements
-- **Training Focus**: Analytical and strategic thinking
-- **Special Features**: Chain-of-thought reasoning via `<think>` and `<answer>` tags
-- **Input Format**: Standard prompts or strategic questions
-- **Output Format**: Structured reasoning followed by concrete recommendations
-
+- 
 ## System Requirements
 
 ### Memory Requirements
@@ -214,9 +152,6 @@ To request an API token for these endpoints, contact sam@openpaws.ai. Please inc
 - **3B Models**:
   - Full precision: \~6GB VRAM
   - 4-bit quantized: \~2GB VRAM
-- **8B Models**:
-  - Full precision: \~16GB VRAM
-  - 4-bit quantized: \~4GB VRAM
 
 ### Recommended Hardware
 
