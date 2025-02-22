@@ -2,8 +2,21 @@
 
 ## Overview
 A suite of prediction models designed to evaluate animal advocacy content through two complementary approaches:
+
 1. Performance prediction based on real-world advocacy metrics
 2. Preference prediction based on human and synthetic feedback
+
+## Available Models on HuggingFace
+
+### Core Models
+- [Animal Advocate Preference Prediction](https://huggingface.co/open-paws/animal_advocate_preference_prediction)
+- [Text Performance Prediction](https://huggingface.co/open-paws/text_performance_prediction)
+
+### Specific Metric Models
+- [Potential Influence Prediction](https://huggingface.co/open-paws/potential_influence_prediction)
+- [Level of Rationality Prediction](https://huggingface.co/open-paws/level_of_rationality_prediction)
+- [Emotional Impact Prediction](https://huggingface.co/open-paws/emotional_impact_prediction)
+- [Perceived Trustworthiness Prediction](https://huggingface.co/open-paws/perceived_trustworthiness_prediction)
 
 ### Preference Prediction Models
 
@@ -13,16 +26,16 @@ Single input, single output models that predict general consensus:
 - Output: 0-1 score for each rating dimension
 - Use case: Quick evaluation of content's general reception
 
-Available models:
-- `alignment_prediction_generic`
-- `cultural_sensitivity_prediction_generic`
-- `emotional_impact_prediction_generic`
-- `effect_on_animals_prediction_generic`
-- `influence_prediction_generic`
-- `relevance_prediction_generic`
-- `rationality_prediction_generic`
-- `trustworthiness_prediction_generic`
-- `insight_prediction_generic`
+Available prediction dimensions:
+- Alignment
+- Cultural sensitivity
+- Emotional impact
+- Effect on animals
+- Influence
+- Relevance
+- Rationality
+- Trustworthiness
+- Insight
 
 #### Personalized Models
 Detailed models considering comprehensive persona characteristics:
@@ -55,17 +68,6 @@ Detailed models considering comprehensive persona characteristics:
     - Role in movement
     - Species (for non-human perspectives)
 
-Available models:
-- `alignment_prediction_personalized`
-- `cultural_sensitivity_prediction_personalized`
-- `emotional_impact_prediction_personalized`
-- `effect_on_animals_prediction_personalized`
-- `influence_prediction_personalized`
-- `relevance_prediction_personalized`
-- `rationality_prediction_personalized`
-- `trustworthiness_prediction_personalized`
-- `insight_prediction_personalized`
-
 ### Performance Prediction Models
 
 #### Text Performance Models
@@ -74,9 +76,6 @@ Available models:
 - Input: Text content
 - Output: Performance score (0-1)
 - Use case: Quick performance estimation
-
-Available models:
-- `performance_prediction_input_text_only`
 
 **Full Details Text Model**
 - Input:
@@ -104,18 +103,12 @@ Available models:
     - Content type
     - Timestamp
 
-Available models:
-- `performance_prediction_input_text_full_details`
-
 #### Image Performance Models
 
 **Basic Image Model**
 - Input: 512-dimension image embedding vector only
 - Output: Performance score (0-1)
 - Use case: Quick visual content evaluation
-
-Available models:
-- `performance_prediction_image_input_embedding_only`
 
 **Full Details Image Model**
 - Input:
@@ -143,6 +136,3 @@ Available models:
     - Language
     - Content type
     - Timestamp (posting date/time)
-
-Available models:
-- `performance_prediction_input_image_full_details`
