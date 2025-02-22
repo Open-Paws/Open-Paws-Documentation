@@ -42,6 +42,7 @@ print(f"Preference Score: {preference_score}")
 ```
 **curl Usage**
 
+```
 curl "https://kev0bv9q0wc83rua.us-east-1.aws.endpoints.huggingface.cloud" \
 -X POST \
 -H "Accept: application/json" \
@@ -50,6 +51,7 @@ curl "https://kev0bv9q0wc83rua.us-east-1.aws.endpoints.huggingface.cloud" \
     "inputs": "Animals deserve to live free from exploitation and suffering.",
     "parameters": {}
 }'
+```
 
 #### Text Performance Prediction Endpoint
 
