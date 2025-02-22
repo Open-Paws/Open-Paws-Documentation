@@ -99,3 +99,4 @@ for text, result in zip(texts, results):
 - [Level of Rationality Prediction](https://huggingface.co/open-paws/level_of_rationality_prediction)
 - [Emotional Impact Prediction](https://huggingface.co/open-paws/emotional_impact_prediction)
 - [Perceived Trustworthiness Prediction](https://huggingface.co/open-paws/perceived_trustworthiness_prediction)
+- [Perceived Insightfulness Prediction](https://huggingface.co/open-paws/perceived_insightfulness_prediction)
