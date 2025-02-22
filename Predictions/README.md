@@ -3,8 +3,8 @@
 ## Overview
 A suite of prediction models designed to evaluate animal advocacy content through two complementary approaches:
 
-1. Performance prediction based on real-world advocacy metrics
-2. Preference prediction based on human and synthetic feedback
+1. **Performance Prediction** – Evaluates content based on real-world advocacy metrics.
+2. **Preference Prediction** – Assesses content using human and synthetic feedback.
 
 ## Using the Models
 
@@ -28,11 +28,13 @@ result = predictor(text)
 
 # Results will be a score between 0 and 1
 print(result[0][0]['score'])  # Example output: 0.856
+```
 
 ### Batch Processing
 
 For processing multiple texts efficiently:
 
+```python
 texts = [
     "Animals deserve to live free from exploitation.",
     "Factory farming causes immense suffering.",
@@ -46,10 +48,11 @@ results = predictor(texts)
 for text, result in zip(texts, results):
     score = result[0]['score']
     print(f"Text: {text}\nScore: {score}\n")
+```
 
-### Known Limitations and Best Practices
+## Known Limitations and Best Practices
 
-#### Handling Out-of-Range Predictions
+### Handling Out-of-Range Predictions
 
 These models are regression-based and can occasionally predict scores outside the intended 0-1 range. This occurs when the model encounters content that it predicts should score more extremely than examples from its training data. To handle this gracefully, we recommend clipping the values to the valid range:
 
@@ -64,7 +67,7 @@ predictor = pipeline(
 )
 
 def clip_score(score):
-    """Clips the score to be between 0 and 1"""
+    """Clips the score to be between 0 and 1."""
     return np.clip(score, 0, 1)
 
 text = "Animals deserve to live free from exploitation and suffering."
@@ -83,8 +86,9 @@ results = predictor(texts)
 for text, result in zip(texts, results):
     score = clip_score(result[0]['score'])
     print(f"Text: {text}\nClipped Score: {score}\n")
+```
 
-## Available Models on HuggingFace
+## Available Models on Hugging Face
 
 ### Core Models
 - [Animal Advocate Preference Prediction](https://huggingface.co/open-paws/animal_advocate_preference_prediction)
