@@ -69,7 +69,7 @@ results = generator(texts, max_new_tokens=128, batch_size=3)
 
 ### Inference Endpoints
 
-Our 4-bit model is available through secure API endpoints that mirror the OpenAI Chat Completions API format. Due to cost constraints, access to these endpoints requires an API token - animal advocacy organisations can contact sam@openpaws.ai to request free access.
+Our 4-bit model is available through secure API endpoints that mirror the OpenAI Chat Completions API format. Due to cost constraints, access to this endpoint requires an API token - animal advocacy organisations can contact sam@openpaws.ai to request free access.
 
 #### 3B Agentic Chat Model Endpoint
 
