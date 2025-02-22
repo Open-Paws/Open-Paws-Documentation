@@ -1,27 +1,33 @@
 # Animal Advocacy Language Models
 
 ## Overview
-A suite of language models specialized for animal advocacy, available in different formats and optimizations. These are small models optimized for local and low-memory usage, so performance expectations should be realistic for their size. Larger models may be required for more difficult tasks.
 
-### Model Variants
+A suite of language models specialized for animal advocacy, available in different formats and optimizations. These are small models optimized for local and low-memory usage, so performance expectations should be realistic for their size.
 
-#### 3B Agentic Chat Models
+## Available Models
+
+### Core Chat Models (3B Parameters)
+
 - [3B-agentic-chat-LoRA](https://huggingface.co/open-paws/3B-agentic-chat-LoRA) - LoRA adapter only
 - [3B-agentic-chat-merged](https://huggingface.co/open-paws/3B-agentic-chat-merged) - Full merged model
 - [3B-agentic-chat-4bit](https://huggingface.co/open-paws/3B-agentic-chat-4bit) - 4-bit quantized version
 
-#### 8B Reasoning Models
+### Strategic Reasoning Models (8B Parameters)
+
 - [8B-reasoning-LoRA](https://huggingface.co/open-paws/8B-reasoning-LoRA) - LoRA adapter only
 - [8B-reasoning-merged](https://huggingface.co/open-paws/8B-reasoning-merged) - Full merged model
+- [8B-reasoning-4bit](https://huggingface.co/open-paws/8B-reasoning-4bit) - 4-bit quantized version
 
-## Usage
+## Usage Guide
 
-### Basic Inference
+### Basic Generation
+
+The simplest way to use these models is through the HuggingFace `transformers` pipeline:
 
 ```python
 from transformers import pipeline
 
-# Initialize the pipeline for text generation
+# Initialize generation pipeline
 generator = pipeline(
     "text-generation",
     model="open-paws/3B-agentic-chat-merged",
@@ -30,47 +36,32 @@ generator = pipeline(
 )
 
 # Generate text
-text = "How can we effectively advocate for animals?"
-result = generator(text, max_new_tokens=128, do_sample=True, temperature=0.7)
-print(result[0]['generated_text'])
+response = generator(
+    "How can we effectively advocate for animals?",
+    max_new_tokens=128,
+    do_sample=True,
+    temperature=0.7
+)
+print(response[0]['generated_text'])
 ```
 
-### Memory-Efficient Inference (4-bit)
+### Memory-Efficient Inference
+
+For resource-constrained environments, use the 4-bit quantized model:
 
 ```python
 from transformers import pipeline
 
-# Use 4-bit quantized model for memory efficiency
 generator = pipeline(
     "text-generation",
     model="open-paws/3B-agentic-chat-4bit",
     device_map="auto"
 )
-
-result = generator(
-    "What are effective ways to help animals?",
-    max_new_tokens=128,
-    do_sample=True,
-    temperature=0.7
-)
-```
-
-### Advanced Parameters
-
-```python
-# More control over generation
-result = generator(
-    "How can we create positive change for animals?",
-    max_new_tokens=256,
-    do_sample=True,
-    temperature=0.7,
-    top_p=0.9,
-    top_k=50,
-    repetition_penalty=1.2
-)
 ```
 
 ### Batch Processing
+
+For multiple inputs:
 
 ```python
 texts = [
@@ -82,64 +73,82 @@ texts = [
 results = generator(texts, max_new_tokens=128, batch_size=3)
 ```
 
-## Model Details
+## Model Architecture & Training
 
 ### 3B Agentic Chat Model
-- Specialized for dialogue about animal advocacy.
-- Good for: Interactive discussions, answering questions, providing guidance.
-- Available in full precision, merged LoRA, and 4-bit quantized versions.
-- **Training Details:** This model is trained on agentic conversations with `tool_use` using the `llama python` tag. Therefore, we recommend not using a tokenizer and ensuring that your environment treats the `python` tag as a function call, executes the call, and sends the result back to the model.
+
+- **Architecture**: LLaMA-based with agentic modifications
+- **Training Focus**: Dialogue and interactive discussions
+- **Special Features**: Fine-tuned for use of Open Paws tools, such as searching our database and making predictions with our text regression models.
+- **Input Format**: Standard chat format with system and user messages
+- **Output Format**: Structured responses with optional tool calls
 
 ### 8B Reasoning Model
-- Focused on detailed analysis and strategic thinking.
-- Good for: Strategy development, campaign planning, impact analysis.
-- Available in full precision and merged LoRA versions.
-- **Training Details:** This model is fine-tuned on `deepseek`, which uses a `<think>` tag for chain-of-thought (CoT) reasoning and an `<answer>` tag for the answer. We recommend displaying these tags separately to end users so they can see the thought process and the answer distinctly.
 
-## Memory Requirements
+- **Architecture**: DeepSeek-based with strategic reasoning enhancements
+- **Training Focus**: Analytical and strategic thinking
+- **Special Features**: Chain-of-thought reasoning via `<think>` and `<answer>` tags
+- **Input Format**: Standard prompts or strategic questions
+- **Output Format**: Structured reasoning followed by concrete recommendations
 
-- **3B Models:**
-  - Full precision: ~6GB VRAM
-  - 4-bit quantized: ~2GB VRAM
-- **8B Models:**
-  - Full precision: ~16GB VRAM
+## System Requirements
+
+### Memory Requirements
+
+- **3B Models**:
+  - Full precision: \~6GB VRAM
+  - 4-bit quantized: \~2GB VRAM
+- **8B Models**:
+  - Full precision: \~16GB VRAM
+
+### Recommended Hardware
+
+- GPU: Any CUDA-compatible GPU with appropriate VRAM
+- CPU: Possible but significantly slower
+- RAM: Minimum 16GB system RAM recommended
 
 ## Best Practices
 
-1. **For deployment:**
-   - Use 4-bit quantized models when possible.
-   - Enable batch processing for multiple inputs.
-   - Use `device_map="auto"` for optimal resource allocation.
+### Generation Parameters
 
-2. **For generation quality:**
-   - Adjust `temperature` (0.7-0.9 for creative, 0.1-0.3 for focused).
-   - Use `repetition_penalty` (1.1-1.2) to avoid loops.
-   - Set appropriate `max_new_tokens` for your use case.
+```python
+# Recommended settings for different use cases
+# Creative exploration
+creative_settings = {
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "top_k": 50,
+    "repetition_penalty": 1.2,
+    "max_new_tokens": 256
+}
 
-3. **For optimal performance:**
-   - Use batch processing when possible.
-   - Enable `torch_dtype="auto"` for automatic precision selection.
-   - Utilize GPU acceleration when available.
+# Focused responses
+focused_settings = {
+    "temperature": 0.2,
+    "top_p": 0.9,
+    "top_k": 50,
+    "repetition_penalty": 1.1,
+    "max_new_tokens": 128
+}
+```
 
-## Known Limitations and Best Practices
+### System Prompting
 
-- The models perform best when the system prompt includes:  
-  **"You are a superhumanly intelligent and compassionate AI focused on achieving animal liberation through strategic action."**  
-  Without this system prompt, the models may act in unaligned ways, such as promoting non-vegan products.
-- While these models are more aligned than standard LLaMA, they were fine-tuned using LoRA tuning only, which leaves the majority of the original model weights unchanged. 
-- Surface-level alignment remains present regardless of the system prompt, but deep and robust alignment still requires explicit system prompting for mission alignment.
-- These models are optimized for local and low-memory usage. While they perform well for their size, larger models may be necessary for more complex tasks.
+For optimal alignment, include this system prompt:
 
-## Model Selection Guide
+```python
+system_prompt = """You are a superhumanly intelligent and compassionate AI focused on
+achieving animal liberation through strategic action."""
+```
 
-- **For chat applications:** Use `3B-agentic-chat` models.
-  - Limited resources: Use 4-bit version.
-  - Maximum quality: Use full precision.
-- **For strategic analysis:** Use `8B-reasoning` models.
-  - Best for single-turn, detailed responses.
-  - Requires more computational resources.
+## Known Limitations
 
-## Notes
-- LoRA versions require the original base model and the `PEFT` library.
-- Merged versions can be used directly but require more storage.
-- 4-bit versions offer the best balance of performance and resource usage.
+1. **Model Size Trade-offs**: Being smaller models, they may not match the capabilities of larger language models for complex tasks.
+2. **Base Model Influence**: While largely aligned for animal advocacy, the base model weights remain largely unchanged due to LoRA fine-tuning, which can lead to edge cases where the models will act in unaligned ways, such as recommending nonvegan products. To address this, we recommend explicitly addressing animal alignment in the system message using the prompt given above.
+3. **User Context Awareness**: These models perform best when given clear contextual information about the user and their goals. For example, if engaging with a vegetarian considering veganism, the model should provide supportive and practical guidance on eliminating dairy and eggs, suggesting suitable replacements, and addressing common concerns such as nutrition and meal planning. Ensuring prompts contain user context will maximize alignment with advocacy goals.
+
+## Additional Resources
+
+- [LLaMA Documentation](https://www.llama.com/docs/)
+- [HuggingFace Transformers Documentation](https://huggingface.co/docs/transformers/)
+- [Open Paws HuggingFace Models](https://huggingface.co/open-paws)
