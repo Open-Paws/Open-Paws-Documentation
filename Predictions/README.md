@@ -6,6 +6,84 @@ A suite of prediction models designed to evaluate animal advocacy content throug
 1. Performance prediction based on real-world advocacy metrics
 2. Preference prediction based on human and synthetic feedback
 
+## Using the Models
+
+These models are text regression models that predict various metrics for animal advocacy content. You can easily use them through the Hugging Face `transformers` library pipeline.
+
+### Basic Usage
+
+```python
+from transformers import pipeline
+
+# Initialize the pipeline for text regression
+predictor = pipeline(
+    "text-classification",
+    model="open-paws/perceived_trustworthiness_prediction",
+    return_all_scores=True
+)
+
+# Make predictions
+text = "Animals deserve to live free from exploitation and suffering."
+result = predictor(text)
+
+# Results will be a score between 0 and 1
+print(result[0][0]['score'])  # Example output: 0.856
+
+### Batch Processing
+
+For processing multiple texts efficiently:
+
+texts = [
+    "Animals deserve to live free from exploitation.",
+    "Factory farming causes immense suffering.",
+    "We must take action to protect animals."
+]
+
+# Process multiple texts at once
+results = predictor(texts)
+
+# Access scores
+for text, result in zip(texts, results):
+    score = result[0]['score']
+    print(f"Text: {text}\nScore: {score}\n")
+
+### Known Limitations and Best Practices
+
+#### Handling Out-of-Range Predictions
+
+These models are regression-based and can occasionally predict scores outside the intended 0-1 range. This occurs when the model encounters content that it predicts should score more extremely than examples from its training data. To handle this gracefully, we recommend clipping the values to the valid range:
+
+```python
+from transformers import pipeline
+import numpy as np
+
+predictor = pipeline(
+    "text-classification",
+    model="open-paws/perceived_trustworthiness_prediction",
+    return_all_scores=True
+)
+
+def clip_score(score):
+    """Clips the score to be between 0 and 1"""
+    return np.clip(score, 0, 1)
+
+text = "Animals deserve to live free from exploitation and suffering."
+result = predictor(text)
+score = result[0][0]['score']
+clipped_score = clip_score(score)
+
+# For batch processing
+texts = [
+    "Animals deserve to live free from exploitation.",
+    "Factory farming causes immense suffering.",
+    "We must take action to protect animals."
+]
+
+results = predictor(texts)
+for text, result in zip(texts, results):
+    score = clip_score(result[0]['score'])
+    print(f"Text: {text}\nClipped Score: {score}\n")
+
 ## Available Models on HuggingFace
 
 ### Core Models
@@ -17,122 +95,3 @@ A suite of prediction models designed to evaluate animal advocacy content throug
 - [Level of Rationality Prediction](https://huggingface.co/open-paws/level_of_rationality_prediction)
 - [Emotional Impact Prediction](https://huggingface.co/open-paws/emotional_impact_prediction)
 - [Perceived Trustworthiness Prediction](https://huggingface.co/open-paws/perceived_trustworthiness_prediction)
-
-### Preference Prediction Models
-
-#### Generic Models
-Single input, single output models that predict general consensus:
-- Input: Text content
-- Output: 0-1 score for each rating dimension
-- Use case: Quick evaluation of content's general reception
-
-Available prediction dimensions:
-- Alignment
-- Cultural sensitivity
-- Emotional impact
-- Effect on animals
-- Influence
-- Relevance
-- Rationality
-- Trustworthiness
-- Insight
-
-#### Personalized Models
-Detailed models considering comprehensive persona characteristics:
-- Input includes:
-  - Content text
-  - Advocacy approach metrics (0-1 scales):
-    - Diplomacy level
-    - Empiricism preference
-    - Focus type
-    - Intersectionality
-    - Rights vs welfare
-  - Personal characteristics:
-    - Advocate status (yes/no)
-    - Age
-    - Personality traits (0-1 scales):
-      - Agreeableness
-      - Conscientiousness
-      - Extraversion
-      - Neuroticism
-      - Openness
-  - Demographics:
-    - Country
-    - Current lifestyle
-    - Education level
-    - Ethnicity
-    - Gender
-    - Income level
-    - Political affiliation
-    - Religious affiliation
-    - Role in movement
-    - Species (for non-human perspectives)
-
-### Performance Prediction Models
-
-#### Text Performance Models
-
-**Basic Text Model**
-- Input: Text content
-- Output: Performance score (0-1)
-- Use case: Quick performance estimation
-
-**Full Details Text Model**
-- Input:
-  - Text content
-  - Advocacy approach metrics (0-1):
-    - Alignment
-    - Cultural sensitivity
-    - Diplomatic vs confrontational
-    - Incrementalist vs abolitionist
-    - Individual vs institutional
-    - Intuitive vs empirical
-    - Single issue vs intersectional
-    - Welfare vs rights
-  - Content metrics (0-1):
-    - Emotional impact
-    - Influence
-    - Insight
-    - Rationality
-    - Relevance
-    - Trustworthiness
-  - Contextual information:
-    - Intervention type (ACE menu)
-    - Outcome type (ACE menu)
-    - Language
-    - Content type
-    - Timestamp
-
-#### Image Performance Models
-
-**Basic Image Model**
-- Input: 512-dimension image embedding vector only
-- Output: Performance score (0-1)
-- Use case: Quick visual content evaluation
-
-**Full Details Image Model**
-- Input:
-  - 512-dimension image embedding vector (numbers between -1 and 1)
-  - Text description of image
-  - Advocacy approach metrics (0-1 scales):
-    - Alignment
-    - Cultural sensitivity
-    - Diplomatic vs confrontational
-    - Incrementalist vs abolitionist
-    - Individual vs institutional
-    - Intuitive vs empirical
-    - Single issue vs intersectional
-    - Welfare vs rights
-  - Content quality metrics (0-1 scales):
-    - Emotional impact
-    - Influence potential
-    - Strategic insight
-    - Rational argumentation
-    - Topic relevance
-    - Trustworthiness
-  - Contextual information:
-    - Intervention type (from ACE menu)
-    - Outcome type (from ACE menu)
-    - Language
-    - Content type
-    - Timestamp (posting date/time)
