@@ -1,7 +1,7 @@
 # Animal Advocacy Language Models
 
 ## Overview
-A suite of language models specialized for animal advocacy, available in different formats and optimizations.
+A suite of language models specialized for animal advocacy, available in different formats and optimizations. These are small models optimized for local and low-memory usage, so performance expectations should be realistic for their size. Larger models may be required for more difficult tasks.
 
 ### Model Variants
 
@@ -120,6 +120,15 @@ results = generator(texts, max_new_tokens=128, batch_size=3)
    - Use batch processing when possible.
    - Enable `torch_dtype="auto"` for automatic precision selection.
    - Utilize GPU acceleration when available.
+
+## Known Limitations and Best Practices
+
+- The models perform best when the system prompt includes:  
+  **"You are a superhumanly intelligent and compassionate AI focused on achieving animal liberation through strategic action."**  
+  Without this system prompt, the models may act in unaligned ways, such as promoting non-vegan products.
+- While these models are more aligned than standard LLaMA, they were fine-tuned using LoRA tuning only, which leaves the majority of the original model weights unchanged. 
+- Surface-level alignment remains present regardless of the system prompt, but deep and robust alignment still requires explicit system prompting for mission alignment.
+- These models are optimized for local and low-memory usage. While they perform well for their size, larger models may be necessary for more complex tasks.
 
 ## Model Selection Guide
 
