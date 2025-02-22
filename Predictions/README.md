@@ -190,3 +190,6 @@ for text, result in zip(texts, results):
 - [Emotional Impact Prediction](https://huggingface.co/open-paws/emotional_impact_prediction)
 - [Perceived Trustworthiness Prediction](https://huggingface.co/open-paws/perceived_trustworthiness_prediction)
 - [Perceived Insightfulness Prediction](https://huggingface.co/open-paws/perceived_insightfulness_prediction)
+- [Perceived Insightfulness Prediction](https://huggingface.co/open-paws/perceived_insightfulness_prediction)
+- [Cultural Sensitivity Prediction](https://huggingface.co/open-paws/cultural_sensitivity_prediction)
+- [Effect on Animals Prediction](https://huggingface.co/open-paws/effect_on_animals_prediction)
