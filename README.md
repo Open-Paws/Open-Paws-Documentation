@@ -19,24 +19,10 @@ Documentation for our performance and preference prediction models:
 ### 🤖 Specialized Generative AI Models
 Documentation for our specialized generative AI models, including Large Language Models (LLMs) and Visual Language Models (VLMs):
 
-1. **3B Agentic Chat LoRA**
-   - Overview & Quick Start (coming soon...)
-   - Best Practises & Usage Guidelines (coming soon...)
-
-2. **8B Reasoning LoRA**
-   - Overview & Quick Start (coming soon...)
-   - Best Practises & Usage Guidelines (coming soon...)
-
-3. **11B Visual Language LoRA**
-   - Overview & Quick Start (coming soon...)
-   - Best Practises & Usage Guidelines (coming soon...)
-
-## Demonstrations
-
-Coming soon...
+- [Overview & Quick Start](Generation/README.md)
 
 ## Datasets
-Access our HuggingFace datasets:
+Use our HuggingFace datasets for fine-tuning your own generative AI models:
 
 1. **Conversational Datasets**
    - Agentic conversations ([small](https://huggingface.co/datasets/open-paws/agentic_conversations_small)/[medium](https://huggingface.co/datasets/open-paws/agentic_conversations_medium)/[large](https://huggingface.co/datasets/open-paws/agentic_conversations_large))
