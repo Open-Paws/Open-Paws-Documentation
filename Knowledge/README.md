@@ -126,6 +126,8 @@ Our database includes the following collections:
 - `Location`: Geographic context linking
 - `Language`: Multilingual support
 
+See the documentation on our [data structure](Knowledge/Data_Structure.md) for full details.
+
 ## 5. Best Practices
 
 1. Use hybrid search for optimal retrieval
