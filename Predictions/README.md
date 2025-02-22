@@ -8,7 +8,7 @@ A suite of prediction models designed to evaluate animal advocacy content throug
 
 ## Using the Models 
 
-These models are text regression models that predict various metrics for animal advocacy content. You can easily use them through the Hugging Face `transformers` library pipeline.
+These models are text regression models that predict various metrics for animal advocacy content. You can easily use them through the Hugging Face `transformers` library pipeline or our dedicated inference endpoints.
 
 ### Using Public Inference Endpoints
 
