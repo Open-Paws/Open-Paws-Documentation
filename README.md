@@ -1,5 +1,3 @@
-# Documentation, Demonstrations & Datasets
-
 ## Overview
 This repository contains everything you need to build AI implementations to support animal advocacy using Open Paws models, data and tools. 
 
