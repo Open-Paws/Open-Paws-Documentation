@@ -126,7 +126,7 @@ Our database includes the following collections:
 - `Location`: Geographic context linking
 - `Language`: Multilingual support
 
-See the documentation on our [data structure](Knowledge/Data_Structure.md) for full details.
+See the documentation on our [data structure](https://github.com/Open-Paws/Open_Paws_Documentation/blob/main/Knowledge/Data_Structure.md) for full details.
 
 ## 5. Best Practices
 
