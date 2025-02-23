@@ -144,7 +144,7 @@ To request an API token for these endpoints, contact sam@openpaws.ai. Please inc
 - **Special Features**: Fine-tuned for use of Open Paws tools, such as searching our database and making predictions with our text regression models.
 - **Input Format**: Standard chat format with system and user messages
 - **Output Format**: Structured responses with optional tool calls
-- 
+  
 ## System Requirements
 
 ### Memory Requirements
