@@ -16,7 +16,7 @@ A suite of language models specialized for animal advocacy, available in differe
 
 ### Basic Generation through HuggingFace's Transformers Library
 
-The simplest way to use these models without authentication is through the HuggingFace `transformers` pipeline:
+The simplest way to use these models is through the HuggingFace `transformers` pipeline:
 
 ```python
 from transformers import pipeline
@@ -65,75 +65,6 @@ texts = [
 ]
 
 results = generator(texts, max_new_tokens=128, batch_size=3)
-```
-
-### Inference Endpoints
-
-Our 4-bit model is available through a secure API endpoint that mirrors the OpenAI Chat Completions API format. Due to cost constraints, access to this endpoint requires an API token - animal advocacy organisations can contact sam@openpaws.ai to request free access.
-
-#### 3B Agentic Chat Model Endpoint
-
-**Using Python**
-
-```python
-from openai import OpenAI
-
-client = OpenAI(
-    base_url="https://vp9om1ztn13jmdq6.us-east-1.aws.endpoints.huggingface.cloud/v1/",
-    api_key="hf_XXXXX"  # Replace with your provided token
-)
-
-chat_completion = client.chat.completions.create(
-    model="tgi",
-    messages=[
-        {
-            "role": "user",
-            "content": "What is deep learning?"
-        }
-    ],
-    max_tokens=150,
-    stream=True
-)
-
-for message in chat_completion:
-    print(message.choices[0].delta.content, end="")
-```
-
-**Using curl**
-
-```
-curl "https://vp9om1ztn13jmdq6.us-east-1.aws.endpoints.huggingface.cloud/v1/chat/completions" \
--X POST \
--H "Authorization: Bearer hf_XXXXX" \
--H "Content-Type: application/json" \
--d '{
-    "model": "tgi",
-    "messages": [
-        {
-            "role": "user",
-            "content": "What is deep learning?"
-        }
-    ],
-    "max_tokens": 150,
-    "stream": true
-}'
-```
-
-#### Endpoint Features
-
-- OpenAI-compatible API format
-- Stream responses for real-time output
-- Secure token-based authentication
-- Always-on inference with consistent response times
-- No rate limits (but please use responsibly)
-
-#### Getting Access
-
-To request an API token for these endpoints, contact sam@openpaws.ai. Please include:
-
-- Your organization/project name
-- Intended use case
-- Estimated usage volume
 
 ## Model Architecture & Training
 
