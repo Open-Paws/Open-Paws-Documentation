@@ -65,6 +65,7 @@ texts = [
 ]
 
 results = generator(texts, max_new_tokens=128, batch_size=3)
+```
 
 ## Model Architecture & Training
 
