@@ -122,7 +122,6 @@ Our database includes the following collections:
 - `Individual`: Data on people in the movement
 - `Group`: Organization and coalition data
 - `Event`: Advocacy event tracking
-- `Species`: Scientific foundation for advocacy
 - `Location`: Geographic context linking
 - `Language`: Multilingual support
 
